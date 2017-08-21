@@ -208,9 +208,10 @@ class Weibospider():
 						 'Referer': 'https://passport.weibo.cn/signin/login?entry=mweibo&res=wel&wm=3349&r=http%3A%2F%2Fm.weibo.cn%2F'
 						}
 		url = 'https://passport.weibo.cn/sso/login'
-		data = {'username':'nnn@qq.com','password':'nnn','savestate':'1','r':'http://m.weibo.cn','ec':'0','pagerefer':'https://passport.weibo.cn/signin/welcome?entry=mweibo&r=http%3A%2F%2Fm.weibo.cn%2F','entry':'entry:mweibo','wentry':'','loginfrom':'','client_id':'','code':'','qq':'','mainpageflag':'1','hff':'','hfp':''}
+		data = {'username':'87798606@qq.com','password':'what','savestate':'1','r':'http://m.weibo.cn','ec':'0','pagerefer':'https://passport.weibo.cn/signin/welcome?entry=mweibo&r=http%3A%2F%2Fm.weibo.cn%2F','entry':'entry:mweibo','wentry':'','loginfrom':'','client_id':'','code':'','qq':'','mainpageflag':'1','hff':'','hfp':''}
 		r = requests.post(url,data=data,headers=human_headers)
 		logincallback = json.loads(r.text)
+		#print r.text
 		if logincallback['retcode'] != 20000000:
 			logger.debug('基础POST登录失败')
 			exit(1)
@@ -230,7 +231,7 @@ class Weibospider():
 			dcap['phantomjs.page.customHeaders.{}'.format(key)] = value
 		driver = webdriver.PhantomJS(executable_path=os.getcwd()+'/phantomjs',desired_capabilities=dcap)
 		result = self._loginWeiboSSO()
-		loginUrl = 'https:'+result['data']['loginresulturl']
+		loginUrl = result['data']['loginresulturl']
 		driver.get(loginUrl)
 		driver.set_window_size(1920, 1080)
 		self._waitUntil(driver)
